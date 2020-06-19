@@ -10,6 +10,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import java.util.Date;
+import java.util.List;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 

@@ -1,10 +1,15 @@
 package com.lambdaschool.foundation.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "book")
-public class Book
+public class Book extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,5 +22,105 @@ public class Book
     private String ISBN;
 
     private int copy;
+
+    @ManyToOne
+    @JoinColumn(name = "sectionid", nullable = false)
+    @JsonIgnoreProperties(value = "book", allowSetters = true)
+    private Section section;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "book", allowSetters = true)
+    private List<Wrote> authors  = new ArrayList<>();
+
+    public Book()
+    {
+    }
+
+    public Book(String booktitle, String ISBN, int copy, Section section)
+    {
+        this.booktitle = booktitle;
+        this.ISBN = ISBN;
+        this.copy = copy;
+    }
+
+    public String getCreatedBy()
+    {
+        return createdBy;
+    }
+
+    public Date getCreatedDate()
+    {
+        return createdDate;
+    }
+
+    public String getLastModifiedBy()
+    {
+        return lastModifiedBy;
+    }
+
+    public Date getLastModifiedDate()
+    {
+        return lastModifiedDate;
+    }
+
+    public long getBookid()
+    {
+        return bookid;
+    }
+
+    public void setBookid(long bookid)
+    {
+        this.bookid = bookid;
+    }
+
+    public String getBooktitle()
+    {
+        return booktitle;
+    }
+
+    public void setBooktitle(String booktitle)
+    {
+        this.booktitle = booktitle;
+    }
+
+    public String getISBN()
+    {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN)
+    {
+        this.ISBN = ISBN;
+    }
+
+    public int getCopy()
+    {
+        return copy;
+    }
+
+    public void setCopy(int copy)
+    {
+        this.copy = copy;
+    }
+
+    public Section getSection()
+    {
+        return section;
+    }
+
+    public void setSection(Section section)
+    {
+        this.section = section;
+    }
+
+    public List<Wrote> getAuthors()
+    {
+        return authors;
+    }
+
+    public void setWrotes(List<Wrote> authors)
+    {
+        this.authors = authors;
+    }
 
 }
