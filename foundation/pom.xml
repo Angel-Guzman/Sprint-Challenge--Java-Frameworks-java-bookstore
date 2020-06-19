@@ -112,7 +112,7 @@
     </dependencies>
 
     <build>
-        <finalName>jrmmba-foundation</finalName>
+        <finalName>angel-david-foundation</finalName>
 
         <plugins>
             <plugin>
