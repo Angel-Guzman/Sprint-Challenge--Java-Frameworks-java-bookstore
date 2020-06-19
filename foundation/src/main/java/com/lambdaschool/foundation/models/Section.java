@@ -30,6 +30,33 @@ public class Section extends Auditable
         this.sectionname = sectionname;
     }
 
+    public long getSectionid()
+    {
+        return sectionid;
+    }
 
+    public void setSectionid(long sectionid)
+    {
+        this.sectionid = sectionid;
+    }
 
+    public String getSectionname()
+    {
+        return sectionname;
+    }
+
+    public void setSectionname(String sectionname)
+    {
+        this.sectionname = sectionname;
+    }
+
+    public List<Book> getBook()
+    {
+        return book;
+    }
+
+    public void setBook(List<Book> book)
+    {
+        this.book = book;
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "wrote",
@@ -13,13 +14,13 @@ public class Wrote extends Auditable implements Serializable
     @Id
     @ManyToOne
     @JoinColumn(name = "bookid")
-    @JsonIgnoreProperties(value = "author", allowSetters = true)
+    @JsonIgnoreProperties(value = "wrotes", allowSetters = true)
     private Book book;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "authorid")
-    @JsonIgnoreProperties(value = "book", allowSetters = true)
+    @JsonIgnoreProperties(value = "wrotes", allowSetters = true)
     private Author author;
 
     public Wrote()
@@ -50,5 +51,21 @@ public class Wrote extends Auditable implements Serializable
     public void setAuthor(Author author)
     {
         this.author = author;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wrote wrote = (Wrote) o;
+        return book.equals(wrote.book) &&
+                author.equals(wrote.author);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(book, author);
     }
 }

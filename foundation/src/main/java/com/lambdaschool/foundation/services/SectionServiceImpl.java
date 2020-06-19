@@ -33,6 +33,6 @@ public class SectionServiceImpl implements SectionService
     @Override
     public Section save(Section section)
     {
-        return null;
+        return sectionrepos.save(section);
     }
 }

@@ -1,11 +1,14 @@
 package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.models.Book;
+import com.lambdaschool.foundation.models.Section;
+import com.lambdaschool.foundation.models.Wrote;
 import com.lambdaschool.foundation.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +33,39 @@ public class BookServiceImpl implements BookService
     @Override
     public Book save(Book book)
     {
-        return null;
+        Book newBook = new Book();
+
+        newBook.setBooktitle(book.getBooktitle());
+        newBook.setCopy(book.getCopy());
+        newBook.setISBN(book.getISBN());
+
+        newBook.setSection(book.getSection());
+
+        List<Wrote> newWrotes = new ArrayList<>();
+        newBook.getWrotes().clear();
+
+
+        for (Wrote w : book.getWrotes())
+        {
+            newWrotes.add(new Wrote(w.getAuthor(), newBook));
+
+        }
+        newBook.setWrotes(newWrotes);
+
+        return bookrepos.save(newBook);
     }
+
+    @Override
+    public void delete(long id)
+    {
+        if (bookrepos.findById(id).isPresent())
+        {
+            bookrepos.deleteById(id);
+        } else
+        {
+            throw new EntityNotFoundException("Order " + id + " Not Found ");
+        }
+    }
+
 
 }
